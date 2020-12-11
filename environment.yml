@@ -1,0 +1,18 @@
+name: FIBRO
+channels:
+  - defaults
+  - bioconda
+dependencies:
+  - multiqc=1.7
+  - fastp=0.20.0
+#  - picard=2.18.4
+  - bcftools=1.8
+  - salmon=0.8.2
+  - star=2.6.0b
+#  - bedops=2.4.30
+#  - cutadapt=1.15
+#  - trim-galore=0.4.5
+#  - subread=1.6.4
+  - samtools=1.8
+  - tabix=0.2.5
+#  - gatk=3.8
