@@ -1,6 +1,6 @@
 FROM rocker/verse:latest
-LABEL authors="dmccarthy@svi.edu.au" \
-  maintainer="Gn5 <gn5@sanger.ak>" \
+LABEL authors="Guillaume Noell" \
+  maintainer="Guillaume Noell <gn5@sanger.ak>" \
   description="Docker image containing all requirements for WSTI-HGI scRNA cellSNP-Vireo deconvolution pipeline"
 
 # nuke cache dirs before installing pkgs; tip from Dirk E fixes broken img
@@ -27,6 +27,6 @@ RUN echo "source activate FIBRO" > ~/.bashrc
 ENV PATH /miniconda/envs/FIBRO/bin:$PATH
 
 RUN pip install cellSNP
-RUN pip install vireoSNP==0.1.1
+RUN pip install vireoSNP # ==0.1.1
 
 CMD /bin/sh
