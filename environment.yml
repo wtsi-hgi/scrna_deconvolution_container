@@ -1,4 +1,4 @@
-name: FIBRO
+name: conda_deconvolution
 channels:
   - defaults
   - bioconda
