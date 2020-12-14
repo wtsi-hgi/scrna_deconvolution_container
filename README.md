@@ -1,8 +1,9 @@
 #### scrna_deconvolution_container
 
-autobuilds: see https://hub.docker.com/repository/docker/mercury/scrna_deconvolution
+- auto-build:  
+    see https://hub.docker.com/repository/docker/mercury/scrna_deconvolution
 
-manual build:
+- manual build:
 
 ```
 docker build --tag scrna_deconvolution_container:1.0 .
