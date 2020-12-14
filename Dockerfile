@@ -29,8 +29,9 @@ ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
 RUN echo $PATH
 
 # Add additional software using Conda env:
-### RUN /bin/bash -c "source activate $conda_env"
-RUN pip install cellSNP
-RUN pip install vireoSNP # ==0.1.1
+RUN /bin/bash -c "source activate $conda_env \
+    && pip install cellSNP \
+    && pip install vireoSNP \
+    && conda env list"
 
 CMD /bin/sh
