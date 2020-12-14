@@ -32,5 +32,7 @@ singularity exec --containall docker://mercury/scrna_deconvolution:latest conda 
 export IMAGE=mercury/scrna_deconvolution:latest
 mkdir -p ~/singu &&  rm -rf singu/*.sif
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v ~/singu:/output --privileged -t --rm quay.io/singularity/docker2singularity $IMAGE
+# check image:
+singularity shell --containall singu/mercury_scrna_deconvolution-*.sif  conda env list
 ```
 
