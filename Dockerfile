@@ -17,6 +17,7 @@ RUN apt-get update && \
   libbz2-dev \
   python-pip \
   zlib1g-dev \
+  procps \ 
   && rm -rf /var/lib/apt/lists/*
 
 # install Conda env:
