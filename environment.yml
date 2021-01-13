@@ -1,13 +1,19 @@
 name: conda_deconvolution
 channels:
   - defaults
+  - conda-forge
   - bioconda
   - anaconda
 dependencies:
   - scipy>=1.4.0
-    #- multiqc
-    #- bcftools
-    #- salmon
-    #- star
-    #- samtools
-    #- tabix
+  - seaborn
+  - scikit-learn
+  - statsmodels
+  - numba
+  - pytables
+  - python-igraph
+  - leidenalg
+  - scanpy
+  - matplotlib
+  - plotnine
+  - seaborn
