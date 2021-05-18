@@ -33,7 +33,6 @@ RUN echo $PATH
 RUN /bin/bash -c "source activate $conda_env \
     && pip install cellSNP \
     && pip install vireoSNP \
-    && pip install click \
     && conda env list"
 
 CMD /bin/sh
