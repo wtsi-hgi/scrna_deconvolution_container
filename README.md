@@ -7,7 +7,7 @@
 the versions are saved during docker build in container file `/usr/conda_software_versions.txt`:  
 (`docker run mercury/scrna_deconvolution_container:1.0 cat /usr/conda_software_versions.txt`)
 
-docker tag **1.0** adds fastqc and updates Python:
+docker tag **1.0** has:
 ```
 cellsnp-lite 1.2.0
 cellSNP v0.3.2 
