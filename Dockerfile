@@ -40,8 +40,8 @@ RUN python -c 'import sys;print(sys.version_info);import cellSNP; import vireoSN
 
 ## check software versions:
 RUN cellSNP || true >> /usr/conda_software_versions.txt 2>&1
-RUN cellsnp-lite -V >> /usr/conda_software_versions.txt
-RUN vireo  || true >> /usr/conda_software_versions.txt 2>&1
+RUN cellsnp-lite -V  || true >> /usr/conda_software_versions.txt 2>&1
+RUN vireo || true >> /usr/conda_software_versions.txt 2>&1
 RUN which python >> /usr/conda_software_versions.txt
 RUN python --version >> /usr/conda_software_versions.txt
 RUN tabix --version  >> /usr/conda_software_versions.txt
