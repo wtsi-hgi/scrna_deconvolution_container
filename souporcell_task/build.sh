@@ -1,0 +1,1 @@
+sudo singularity build shub_wheaton5_souporcell_latest.img singularity.recipe
