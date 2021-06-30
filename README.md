@@ -3,7 +3,22 @@
 - Dockerhub auto-build:  
     see https://hub.docker.com/repository/docker/mercury/scrna_deconvolution
 
-- Docker manual build:
+##### current software versions:  
+the versions are saved during docker build in container file `/usr/conda_software_versions.txt`:  
+(`docker run mercury/scrna_deconvolution_container:1.0 cat /usr/conda_software_versions.txt`)
+
+docker tag **1.0** has:
+```
+cellsnp-lite 1.2.0
+cellSNP v0.3.2 
+vireoSNP v0.5.6
+Python 3.8.8
+tabix (htslib) 1.12
+bcftools 1.12 Using htslib 1.12
+samtools 1.12 Using htslib 1.12
+```
+
+##### Docker manual build:
 
 ```
 docker build --tag scrna_deconvolution_container:1.0 .

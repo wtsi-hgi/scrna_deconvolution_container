@@ -34,5 +34,19 @@ RUN /bin/bash -c "source activate $conda_env \
     && pip install cellSNP \
     && pip install vireoSNP \
     && conda env list"
+    
+# test main python libraries can be loaded:
+RUN python -c 'import sys;print(sys.version_info);import cellSNP; import vireoSNP; import scanpy; import click; import pandas; import plotnine; import matplotlib'
+
+## check software versions:
+RUN cellSNP  >> /usr/conda_software_versions.txt 2>&1 || true
+RUN cellsnp-lite -V >> /usr/conda_software_versions.txt 2>&1 || true
+RUN vireo  >> /usr/conda_software_versions.txt 2>&1 || true
+RUN which python >> /usr/conda_software_versions.txt
+RUN python --version >> /usr/conda_software_versions.txt
+RUN tabix --version  >> /usr/conda_software_versions.txt
+RUN bcftools --version  >> /usr/conda_software_versions.txt
+RUN samtools --version  >> /usr/conda_software_versions.txt
+RUN cat /usr/conda_software_versions.txt
 
 CMD /bin/sh
