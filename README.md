@@ -1,6 +1,4 @@
-#### scrna_deconvolution_container
-
-these containers are set up for use in the sCNA deconvolution Nextflow pipeline:
+These containers are set up for use in the sCNA deconvolution Nextflow pipeline:
 https://github.com/wtsi-hgi/nf_scrna_deconvolution/
 
 ### containers
