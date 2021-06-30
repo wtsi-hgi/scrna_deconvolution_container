@@ -1,9 +1,0 @@
-Bootstrap: shub
-From: wheaton5/souporcell
-
-%post
-# install procps ('ps' is required by Nextflow)
-apt-get -qq -y update
-apt-get -qq install -y --no-install-recommends procps
-
-# singularity build shub_wheaton5_souporcell_latest.img singularity.recipe
