@@ -4,6 +4,7 @@ channels:
   - conda-forge
   - bioconda
   - anaconda
+  - r
 dependencies:
   - scipy>=1.4.0
   - seaborn
@@ -23,3 +24,4 @@ dependencies:
   - tabix
   - bcftools
   - samtools
+  - r-tidyverse
