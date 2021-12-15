@@ -1,52 +1,50 @@
-FROM continuumio/miniconda3
-# ARG conda_env variable must match conda env name in environment.yml:
-ARG conda_env=conda_deconvolution
+FROM mambaorg/micromamba:0.15.3
 
-LABEL authors="Guillaume Noell" \
-  maintainer="Guillaume Noell <gn5@sanger.ak>" \
-  description="Docker image for WSTI-HGI scRNA cellSNP-Vireo deconvolution pipeline"
-
+# apt installs
+USER root
 # nuke cache dirs before installing pkgs; tip from Dirk E fixes broken img
 RUN rm -f /var/lib/dpkg/available && rm -rf  /var/cache/apt/*
 RUN apt-get update && \
   apt-get -y upgrade && \
   apt-get install -y --no-install-recommends \
-  build-essential \
-  curl \
-  git \
-  libbz2-dev \
-  python-pip \
-  zlib1g-dev \
-  procps \ 
+  procps \
+  python2.7 \
+  build-essential curl git python3-pip procps \ 
+  manpages-dev g++ gcc gfortran make autoconf automake libtool \
+  zlib1g-dev liblzma-dev libbz2-dev lbzip2 libgsl-dev \
+  libblas-dev libx11-dev \
+  libreadline-dev libxt-dev libpcre2-dev libcurl4-openssl-dev \
   && rm -rf /var/lib/apt/lists/*
 
-# install Conda env:
-ADD environment.yml /tmp/environment.yml
-RUN conda env create -f /tmp/environment.yml
+# install mamba env
+USER micromamba
+COPY --chown=micromamba:micromamba environment.yml /tmp/env.yaml
+RUN micromamba install -y -n base -f /tmp/env.yaml && \
+    micromamba clean --all --yes
 
-# Set installed Conda env as default:
-ENV CONDA_DEFAULT_ENV $conda_env
-ENV PATH /opt/conda/envs/$conda_env/bin:$PATH
-RUN echo $PATH
+ENV MAMBA_ROOT_PREFIX="/opt/conda"
+WORKDIR "$MAMBA_ROOT_PREFIX"
 
+RUN which pip
 # Add additional software using Conda env:
-RUN /bin/bash -c "source activate $conda_env \
-    && pip install cellSNP \
-    && pip install vireoSNP \
-    && conda env list"
+RUN pip install cellSNP && pip install vireoSNP
     
 # test main python libraries can be loaded:
-RUN python -c 'import sys;print(sys.version_info);import cellSNP; import vireoSNP; import scanpy; import click; import pandas; import plotnine; import matplotlib'
+RUN python -c 'import sys;print(sys.version_info);import celltypist; import cellSNP; import vireoSNP; import scanpy; import click; import pandas; import plotnine; import matplotlib'
 
 ## check software versions:
-RUN cellSNP  >> /usr/conda_software_versions.txt 2>&1 || true
-RUN cellsnp-lite -V >> /usr/conda_software_versions.txt 2>&1 || true
-RUN vireo  >> /usr/conda_software_versions.txt 2>&1 || true
-RUN which python >> /usr/conda_software_versions.txt
-RUN python --version >> /usr/conda_software_versions.txt
-RUN tabix --version  >> /usr/conda_software_versions.txt
-RUN bcftools --version  >> /usr/conda_software_versions.txt
-RUN samtools --version  >> /usr/conda_software_versions.txt
-RUN cat /usr/conda_software_versions.txt
+RUN celltypist --help  >> /opt/conda/conda_software_versions.txt 2>&1 || true
+RUN cellSNP  >> /opt/conda/conda_software_versions.txt 2>&1 || true
+RUN cellsnp-lite -V >> /opt/conda/conda_software_versions.txt 2>&1 || true
+RUN vireo  >> /opt/conda/conda_software_versions.txt 2>&1 || true
+RUN which python >> /opt/conda/conda_software_versions.txt
+RUN python --version >> /opt/conda/conda_software_versions.txt
+RUN tabix --version  >> /opt/conda/conda_software_versions.txt
+RUN bcftools --version  >> /opt/conda/conda_software_versions.txt
+RUN samtools --version  >> /opt/conda/conda_software_versions.txt
+RUN cat /opt/conda/conda_software_versions.txt
 
-CMD /bin/sh
+USER micromamba
+WORKDIR /tmp
+ENTRYPOINT ["/bin/entrypoint.sh"]
+CMD ["/bin/bash"]

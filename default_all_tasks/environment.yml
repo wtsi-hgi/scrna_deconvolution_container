@@ -4,7 +4,9 @@ channels:
   - conda-forge
   - bioconda
   - anaconda
+  - r
 dependencies:
+  - celltypist=0.1.4
   - scipy>=1.4.0
   - seaborn
   - scikit-learn
@@ -23,3 +25,4 @@ dependencies:
   - tabix
   - bcftools
   - samtools
+  - r-tidyverse
